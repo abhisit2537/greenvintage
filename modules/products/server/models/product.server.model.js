@@ -30,6 +30,10 @@ var ProductSchema = new Schema({
       id: String
     }]
   },
+  preparedays: {
+    type: Number,
+    required: 'Please fill Product preparedays',
+  },
   qa: {
     type: [{
       question: String,

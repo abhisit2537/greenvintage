@@ -86,6 +86,7 @@ describe('Product CRUD tests', function () {
         shipping: shipping,
         review: [],
         rate: 5,
+        preparedays:5,
         qa: [{
           question: 'Qa question',
           answer: 'Qa answer'
@@ -183,6 +184,7 @@ describe('Product CRUD tests', function () {
                 (products[0].unitprice).should.match(100);
                 (products[0].img[0].id).should.match('imageID');
                 (products[0].img[0].url).should.match('imageUrl');
+                (products[0].preparedays).should.match(5);
                 // Call the assertion callback
                 done();
               });

@@ -67,6 +67,7 @@ describe('Product Model Unit Tests:', function () {
         shipping: shipping,
         review: [],
         rate: 5,
+        preparedays:5,
         qa: [{
           question: 'Qa question',
           answer: 'Qa answer'
@@ -190,6 +191,15 @@ it('should be able to show an error when try to save without img', function (don
 
     it('should be able to show an error when try to save without category', function (done) {
       product.category = [];
+
+      return product.save(function (err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+     it('should be able to show an error when try to save without preparedays', function (done) {
+      product.preparedays = null;
 
       return product.save(function (err) {
         should.exist(err);
