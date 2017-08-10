@@ -301,7 +301,7 @@
 * Cleanly track mongoose connection in test task sequence ([71c4d4b](https://github.com/meanjs/mean/commit/71c4d4b))
 * Correctly encode and decode password salt ([08f1750](https://github.com/meanjs/mean/commit/08f1750))
 * Disconnect method to close DB connection ([e954a20](https://github.com/meanjs/mean/commit/e954a20))
-* displayName undefined ([7605956](https://github.com/meanjs/mean/commit/7605956))
+* displayname undefined ([7605956](https://github.com/meanjs/mean/commit/7605956))
 * do not use aes when creating ssl certs to prevent password requirement ([bf777d9](https://github.com/meanjs/mean/commit/bf777d9))
 * duplicate controller.  This was moved under settings/ ([d0bb4a3](https://github.com/meanjs/mean/commit/d0bb4a3))
 * Enable redirection to previous page after login ([e6a35a7](https://github.com/meanjs/mean/commit/e6a35a7))

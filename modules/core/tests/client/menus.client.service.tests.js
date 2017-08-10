@@ -18,7 +18,7 @@
     });
 
     it('should have default roles to user and admin', function() {
-      expect(Menus.defaultRoles).toEqual(['user', 'admin']);
+      expect(Menus.defaultRoles).toEqual(['user', 'admin', 'seller']);
     });
 
     describe('addMenu', function() {

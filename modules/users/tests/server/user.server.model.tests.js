@@ -19,10 +19,11 @@ describe('User Model Unit Tests:', function () {
 
   before(function () {
     user1 = {
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
+      firstname: 'Full',
+      lastname: 'Name',
+      displayname: 'Full Name',
       email: 'test@test.com',
+      tel: 'tel',
       username: 'username',
       password: 'M3@n.jsI$Aw3$0m3',
       provider: 'local'
@@ -30,10 +31,11 @@ describe('User Model Unit Tests:', function () {
     // user2 is a clone of user1
     user2 = user1;
     user3 = {
-      firstName: 'Different',
-      lastName: 'User',
-      displayName: 'Full Different Name',
+      firstname: 'Different',
+      lastname: 'User',
+      displayname: 'Full Different Name',
       email: 'test3@test.com',
+      tel: 'different_tel',
       username: 'different_username',
       password: 'Different_Password1!',
       provider: 'local'
@@ -78,7 +80,7 @@ describe('User Model Unit Tests:', function () {
     it('should be able to show an error when trying to save without first name', function (done) {
       var _user1 = new User(user1);
 
-      _user1.firstName = '';
+      _user1.firstname = '';
       _user1.save(function (err) {
         should.exist(err);
         done();
@@ -90,7 +92,7 @@ describe('User Model Unit Tests:', function () {
 
       _user1.save(function (err) {
         should.not.exist(err);
-        _user1.roles = ['user', 'admin'];
+        _user1.roles = ['user', 'admin', 'seller'];
         _user1.save(function (err) {
           should.not.exist(err);
           _user1.remove(function (err) {
@@ -139,7 +141,7 @@ describe('User Model Unit Tests:', function () {
       _user1.save(function (err) {
         should.not.exist(err);
         var passwordBefore = _user1.password;
-        _user1.firstName = 'test';
+        _user1.firstname = 'test';
         _user1.save(function (err) {
           var passwordAfter = _user1.password;
           passwordBefore.should.equal(passwordAfter);

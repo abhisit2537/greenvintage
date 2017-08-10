@@ -13,7 +13,7 @@ module.exports = function (config) {
     clientID: config.facebook.clientID,
     clientSecret: config.facebook.clientSecret,
     callbackURL: config.facebook.callbackURL,
-    profileFields: ['id', 'name', 'displayName', 'emails', 'photos'],
+    profileFields: ['id', 'name', 'displayname', 'emails', 'photos'],
     passReqToCallback: true
   },
   function (req, accessToken, refreshToken, profile, done) {
@@ -24,9 +24,9 @@ module.exports = function (config) {
 
     // Create the user OAuth profile
     var providerUserProfile = {
-      firstName: profile.name.givenName,
-      lastName: profile.name.familyName,
-      displayName: profile.displayName,
+      firstname: profile.name.givenName,
+      lastname: profile.name.familyName,
+      displayname: profile.displayname,
       email: profile.emails ? profile.emails[0].value : undefined,
       username: profile.username || generateUsername(profile),
       profileImageURL: (profile.id) ? '//graph.facebook.com/' + profile.id + '/picture?type=large' : undefined,
