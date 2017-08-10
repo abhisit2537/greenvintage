@@ -1275,7 +1275,7 @@ angular.mock.dump = function(object) {
     $httpBackend.whenRoute('GET', '/users')
       .respond(function(method, url, data, headers, params) {
         var userList = angular.copy(MockUserList),
-          defaultSort = 'lastname',
+          defaultSort = 'lastName',
           count, pages, isPrevious, isNext;
 
         // paged api response '/v1/users?page=2'
@@ -1283,7 +1283,7 @@ angular.mock.dump = function(object) {
 
         // query for last names '/v1/users?q=Archer'
         if (params.q) {
-          userList = $filter('filter')({lastname: params.q});
+          userList = $filter('filter')({lastName: params.q});
         }
 
         pages = Math.ceil(userList.length / pagingLength);
@@ -1294,7 +1294,7 @@ angular.mock.dump = function(object) {
           count:    userList.length,
           previous: isPrevious,
           next:     isNext,
-          // sort field -> '/v1/users?sortBy=firstname'
+          // sort field -> '/v1/users?sortBy=firstName'
           results:  $filter('orderBy')(userList, params.sortBy || defaultSort)
                       .splice((params.page - 1) * pagingLength, pagingLength)
         }];

@@ -20221,19 +20221,19 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
            User name: <input type="text" name="userName" ng-model="user.name" required>
            <span class="error" ng-show="myForm.userName.$error.required">
              Required!</span><br>
-           Last name: <input type="text" name="lastname" ng-model="user.last"
+           Last name: <input type="text" name="lastName" ng-model="user.last"
              ng-minlength="3" ng-maxlength="10">
-           <span class="error" ng-show="myForm.lastname.$error.minlength">
+           <span class="error" ng-show="myForm.lastName.$error.minlength">
              Too short!</span>
-           <span class="error" ng-show="myForm.lastname.$error.maxlength">
+           <span class="error" ng-show="myForm.lastName.$error.maxlength">
              Too long!</span><br>
          </form>
          <hr>
          <tt>user = {{user}}</tt><br/>
          <tt>myForm.userName.$valid = {{myForm.userName.$valid}}</tt><br>
          <tt>myForm.userName.$error = {{myForm.userName.$error}}</tt><br>
-         <tt>myForm.lastname.$valid = {{myForm.lastname.$valid}}</tt><br>
-         <tt>myForm.lastname.$error = {{myForm.lastname.$error}}</tt><br>
+         <tt>myForm.lastName.$valid = {{myForm.lastName.$valid}}</tt><br>
+         <tt>myForm.lastName.$error = {{myForm.lastName.$error}}</tt><br>
          <tt>myForm.$valid = {{myForm.$valid}}</tt><br>
          <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br>
          <tt>myForm.$error.minlength = {{!!myForm.$error.minlength}}</tt><br>
@@ -20243,8 +20243,8 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
       <file name="protractor.js" type="protractor">
         var user = element(by.exactBinding('user'));
         var userNameValid = element(by.binding('myForm.userName.$valid'));
-        var lastnameValid = element(by.binding('myForm.lastname.$valid'));
-        var lastnameError = element(by.binding('myForm.lastname.$error'));
+        var lastNameValid = element(by.binding('myForm.lastName.$valid'));
+        var lastNameError = element(by.binding('myForm.lastName.$error'));
         var formValid = element(by.binding('myForm.$valid'));
         var userNameInput = element(by.model('user.name'));
         var userLastInput = element(by.model('user.last'));
@@ -20269,7 +20269,7 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
           userLastInput.sendKeys('');
 
           expect(user.getText()).toContain('{"name":"guest","last":""}');
-          expect(lastnameValid.getText()).toContain('true');
+          expect(lastNameValid.getText()).toContain('true');
           expect(formValid.getText()).toContain('true');
         });
 
@@ -20278,8 +20278,8 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
           userLastInput.sendKeys('xx');
 
           expect(user.getText()).toContain('{"name":"guest"}');
-          expect(lastnameValid.getText()).toContain('false');
-          expect(lastnameError.getText()).toContain('minlength');
+          expect(lastNameValid.getText()).toContain('false');
+          expect(lastNameError.getText()).toContain('minlength');
           expect(formValid.getText()).toContain('false');
         });
 
@@ -20288,8 +20288,8 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
           userLastInput.sendKeys('some ridiculously long name');
 
           expect(user.getText()).toContain('{"name":"guest"}');
-          expect(lastnameValid.getText()).toContain('false');
-          expect(lastnameError.getText()).toContain('maxlength');
+          expect(lastNameValid.getText()).toContain('false');
+          expect(lastNameError.getText()).toContain('maxlength');
           expect(formValid.getText()).toContain('false');
         });
       </file>

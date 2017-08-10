@@ -6,14 +6,14 @@
                     <h3>สมัครใช้งาน</h3>
                     <form name="userForm" class="signin" novalidate autocomplete="off">
                         <div class="form-group" show-errors style="display: -webkit-box">
-                            <input type="text" name="firstname" class="form-control" placeholder="ชื่อ" ng-model="credentials.firstname" required>                            <span style="margin-left:8px;color:red">*</span>
-                            <div class="text-left" ng-messages="userForm.firstname.$error" role="alert">
+                            <input type="text" name="firstName" class="form-control" placeholder="ชื่อ" ng-model="credentials.firstName" required>                            <span style="margin-left:8px;color:red">*</span>
+                            <div class="text-left" ng-messages="userForm.firstName.$error" role="alert">
                                 <p class="help-block error-text" ng-message="required">กรุณากรอกชื่อ</p>
                             </div>
                         </div>
                         <div class="form-group" show-errors style="display: -webkit-box">
-                            <input type="text" name="lastname" class="form-control" placeholder="นามสกุล" ng-model="credentials.lastname" required>                            <span style="margin-left:8px;color:red">*</span>
-                            <div class="text-left" ng-messages="userForm.lastname.$error" role="alert">
+                            <input type="text" name="lastName" class="form-control" placeholder="นามสกุล" ng-model="credentials.lastName" required>                            <span style="margin-left:8px;color:red">*</span>
+                            <div class="text-left" ng-messages="userForm.lastName.$error" role="alert">
                                 <p class="help-block error-text" ng-message="required">กรุณากรอกนามสกุล</p>
                             </div>
                         </div>

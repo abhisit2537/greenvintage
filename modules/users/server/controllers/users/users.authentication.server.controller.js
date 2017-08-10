@@ -29,7 +29,7 @@ exports.signup = function (req, res) {
 
   // Add missing user fields
   user.provider = 'local';
-  user.displayname = user.firstname + ' ' + user.lastname;
+  user.displayName = user.firstName + ' ' + user.lastName;
 
   // Then save the user
   user.save(function (err) {
@@ -169,10 +169,10 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 
           User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
             user = new User({
-              firstname: providerUserProfile.firstname,
-              lastname: providerUserProfile.lastname,
+              firstName: providerUserProfile.firstName,
+              lastName: providerUserProfile.lastName,
               username: availableUsername,
-              displayname: providerUserProfile.displayname,
+              displayName: providerUserProfile.displayName,
               email: providerUserProfile.email,
               profileImageURL: providerUserProfile.profileImageURL,
               provider: providerUserProfile.provider,

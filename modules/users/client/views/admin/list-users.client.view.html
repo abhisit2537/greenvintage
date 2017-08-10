@@ -25,7 +25,7 @@
                                                 <ul class="sortable-list connectList agile-list ui-sortable" id="todo">
                                                     <li class="success-element ui-sortable-handle" id="task2" ng-repeat="user in pagedItems | filter: { roles : searchTeb}" ui-sref="admin.user({userId: user._id})">
                                                         <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
-                                                        ( {{user.displayname}} )
+                                                        ( {{user.displayName}} )
                                                         <p class="label status-roles label-primary pull-right">{{ user.roles[0] | uppercase }}</p>
                                                     </li>
                                                 </ul>
@@ -36,7 +36,7 @@
                                                 <ul class="sortable-list connectList agile-list ui-sortable" id="todo">
                                                     <li class="danger-element ui-sortable-handle" id="task2" ng-repeat="user in pagedItems | filter: { roles : searchTeb}" ui-sref="admin.user({userId: user._id})">
                                                         <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
-                                                        ( {{user.displayname}} )
+                                                        ( {{user.displayName}} )
                                                         <p class="label status-roles label-danger pull-right">{{ user.roles[0] | uppercase }}</p>
                                                     </li>
                                                 </ul>

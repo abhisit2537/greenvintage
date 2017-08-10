@@ -30,9 +30,9 @@ describe('Configuration Tests:', function () {
           username: 'user_config_test',
           provider: 'local',
           email: 'user_config_test_@localhost.com',
-          firstname: 'User',
-          lastname: 'Local',
-          displayname: 'User Local',
+          firstName: 'User',
+          lastName: 'Local',
+          displayName: 'User Local',
           roles: ['user']
         };
 
@@ -40,9 +40,9 @@ describe('Configuration Tests:', function () {
           username: 'admin_config_test',
           provider: 'local',
           email: 'admin_config_test_@localhost.com',
-          firstname: 'Admin',
-          lastname: 'Local',
-          displayname: 'Admin Local',
+          firstName: 'Admin',
+          lastName: 'Local',
+          displayName: 'Admin Local',
           roles: ['user', 'admin', 'seller']
         };
 
