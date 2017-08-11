@@ -51,7 +51,28 @@ describe('Shopseller CRUD tests', function () {
     // Save a user to the test db and create new Shopseller
     user.save(function () {
       shopseller = {
-        name: 'Shopseller name'
+        name: 'Shopseller Name',
+        email: 'Shopseller email',
+        tel: 'Shopseller tel',
+        img: {
+          url: 'imgUrl',
+          id: 'imgId'
+        },
+        coverimg: {
+          url: 'imgUrl',
+          id: 'imgId'
+        },
+        detail: 'Shopseller detail',
+        review: [{
+          comment: 'Review comment',
+          rate: 5,
+          user: user
+        }],
+        rate: 5,
+        historylog: [{
+          customerid: user,
+          historydate: new Date('2017-04-22')
+        }],
       };
 
       done();
@@ -94,7 +115,8 @@ describe('Shopseller CRUD tests', function () {
 
                 // Set assertions
                 (shopsellers[0].user._id).should.equal(userId);
-                (shopsellers[0].name).should.match('Shopseller name');
+                (shopsellers[0].name).should.match('Shopseller Name');
+                (shopsellers[0].tel).should.match('Shopseller tel');
 
                 // Call the assertion callback
                 done();

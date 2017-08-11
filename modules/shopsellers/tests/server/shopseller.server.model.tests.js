@@ -31,6 +31,29 @@ describe('Shopseller Model Unit Tests:', function() {
     user.save(function() {
       shopseller = new Shopseller({
         name: 'Shopseller Name',
+        email:'Shopseller email',
+        tel: 'Shopseller tel',
+        img:{
+          url:'imgUrl',
+          id:'imgId'
+        },
+        coverimg:{
+          url:'imgUrl',
+          id:'imgId'
+        },
+        detail:'Shopseller detail',
+        review:[{
+          comment:'Review comment',
+          rate:5,
+          user:user
+        }],
+        rate:5,
+        historylog:[{
+          customerid:user,
+         historydate:new Date('2017-04-22')
+        }],
+
+
         user: user
       });
 
@@ -55,6 +78,16 @@ describe('Shopseller Model Unit Tests:', function() {
         done();
       });
     });
+
+it('should be able to show an error when try to save without tel', function(done) {
+      shopseller.tel = '';
+
+      return shopseller.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
   });
 
   afterEach(function(done) {
