@@ -5,6 +5,7 @@ var should = require('should'),
   path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Shipping = mongoose.model('Shipping'),
   Product = mongoose.model('Product'),
   express = require(path.resolve('./config/lib/express'));
 
@@ -15,6 +16,7 @@ var app,
   agent,
   credentials,
   user,
+  shipping,
   product;
 
 /**
@@ -48,9 +50,11 @@ describe('Product CRUD tests', function () {
       provider: 'local'
     });
 
-     var shipping = {
-      name: 'ems'
-    };
+    shipping = new Shipping({
+      name: 'ems',
+      detail: 'Shipping detail',
+      day: 5
+    });
     var payment = [{
       name: 'payment name'
     }];
@@ -73,74 +77,81 @@ describe('Product CRUD tests', function () {
       historylog: []
     };
     // Save a user to the test db and create new Product
-    user.save(function () {
-      product = {
-        shopseller: shopseller,
-        name: 'product name',
-        detail: 'product detail',
-        unitprice: 100,
-        img: [{
-          url: 'imageUrl',
-          id: 'imageID'
-        }],
-        shipping: shipping,
-        review: [],
-        rate: 5,
-        preparedays:5,
-        qa: [{
-          question: 'Qa question',
-          answer: 'Qa answer'
-        }],
-        promotion: [{
-          name: 'promotion name',
-          desc: 'promotion description',
-          code: 'promotion code',
-          startdate: new Date('2017-04-20'),
-          enddate: new Date('2017-04-22')
-        }],
-        favorite: [{
-          customerid: user,
-          favdate: new Date('2017-04-22')
-
-        }],
-        historyLog: [{
-          customerid: user,
-          hisdate: new Date('2017-04-22')
-        }],
-        stock: {
-          stockvalue: [{
-            in: 10,
-            out: 10,
-            stockdate: new Date('2017-04-22')
+    shipping.save(function (err, result) {
+      user.save(function () {
+        product = {
+          shopseller: shopseller,
+          name: 'product name',
+          detail: 'product detail',
+          unitprice: 100,
+          img: [{
+            url: 'imageUrl',
+            id: 'imageID'
           }],
-          sumin: 10,
-          sumout: 10,
-          amount: 10
-        },
-        payment: payment,
-        qty: 10,
-        size: {
-          issize: true,
-          detail: {
-            desc: 'detail size',
-            sizedetail: [{
-              name: 'sizedetail name',
-              qty: 10
+          shippings: [{
+            shipping: shipping,
+            shippingprice: 0,
+            shippingstartdate: new Date('2017-04-20'),
+            shippingenddate: new Date('2017-04-20')
+          }],
+          review: [],
+          rate: 5,
+          preparedays: 5,
+          qa: [{
+            question: 'Qa question',
+            answer: 'Qa answer'
+          }],
+          promotion: [{
+            name: 'promotion name',
+            desc: 'promotion description',
+            code: 'promotion code',
+            startdate: new Date('2017-04-20'),
+            enddate: new Date('2017-04-22')
+          }],
+          favorite: [{
+            customerid: user,
+            favdate: new Date('2017-04-22')
+
+          }],
+          historyLog: [{
+            customerid: user,
+            hisdate: new Date('2017-04-22')
+          }],
+          stock: {
+            stockvalue: [{
+              in: 10,
+              out: 10,
+              stockdate: new Date('2017-04-22')
             }],
+            sumin: 10,
+            sumout: 10,
+            amount: 10
           },
-        },
+          payment: payment,
+          qty: 10,
+          size: {
+            issize: true,
+            detail: {
+              desc: 'detail size',
+              sizedetail: [{
+                name: 'sizedetail name',
+                qty: 10
+              }],
+            },
+          },
 
-        category: [{
-          name: 'category name',
-          desc: 'category description',
-          subcategory: [{
-            name: 'subcategory name',
-            desc: 'subcategory description'
+          category: [{
+            name: 'category name',
+            desc: 'category description',
+            subcategory: [{
+              name: 'subcategory name',
+              desc: 'subcategory description'
+            }],
           }],
-        }],
-      };
+        };
 
-      done();
+        done();
+      });
     });
   });
 
@@ -185,6 +196,8 @@ describe('Product CRUD tests', function () {
                 (products[0].img[0].id).should.match('imageID');
                 (products[0].img[0].url).should.match('imageUrl');
                 (products[0].preparedays).should.match(5);
+                (products[0].shippings[0].shipping.name).should.match('ems');
+
                 // Call the assertion callback
                 done();
               });
@@ -493,8 +506,10 @@ describe('Product CRUD tests', function () {
   });
 
   afterEach(function (done) {
-    User.remove().exec(function () {
-      Product.remove().exec(done);
+    Shipping.remove().exec(function () {
+      User.remove().exec(function () {
+        Product.remove().exec(done);
+      });
     });
   });
 });

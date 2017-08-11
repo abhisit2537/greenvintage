@@ -5,115 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Product = mongoose.model('Product'),
+  Payment = mongoose.model('Payment'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Product
+ * Create a Payment
  */
 exports.create = function(req, res) {
-  var product = new Product(req.body);
-  product.user = req.user;
+  var payment = new Payment(req.body);
+  payment.user = req.user;
 
-  product.save(function(err) {
+  payment.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(product);
+      res.jsonp(payment);
     }
   });
 };
 
 /**
- * Show the current Product
+ * Show the current Payment
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var product = req.product ? req.product.toJSON() : {};
+  var payment = req.payment ? req.payment.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  product.isCurrentUserOwner = req.user && product.user && product.user._id.toString() === req.user._id.toString();
+  payment.isCurrentUserOwner = req.user && payment.user && payment.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(product);
+  res.jsonp(payment);
 };
 
 /**
- * Update a Product
+ * Update a Payment
  */
 exports.update = function(req, res) {
-  var product = req.product;
+  var payment = req.payment;
 
-  product = _.extend(product, req.body);
+  payment = _.extend(payment, req.body);
 
-  product.save(function(err) {
+  payment.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(product);
+      res.jsonp(payment);
     }
   });
 };
 
 /**
- * Delete an Product
+ * Delete an Payment
  */
 exports.delete = function(req, res) {
-  var product = req.product;
+  var payment = req.payment;
 
-  product.remove(function(err) {
+  payment.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(product);
+      res.jsonp(payment);
     }
   });
 };
 
 /**
- * List of Products
+ * List of Payments
  */
 exports.list = function(req, res) {
-  Product.find().sort('-created').populate('user', 'displayName').populate('shippings.shipping')
-  .exec(function(err, products) {
+  Payment.find().sort('-created').populate('user', 'displayName').exec(function(err, payments) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(products);
+      res.jsonp(payments);
     }
   });
 };
 
 /**
- * Product middleware
+ * Payment middleware
  */
-exports.productByID = function(req, res, next, id) {
+exports.paymentByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Product is invalid'
+      message: 'Payment is invalid'
     });
   }
 
-  Product.findById(id).populate('user', 'displayName').populate('shippings.shipping')
-  .exec(function (err, product) {
+  Payment.findById(id).populate('user', 'displayName').exec(function (err, payment) {
     if (err) {
       return next(err);
-    } else if (!product) {
+    } else if (!payment) {
       return res.status(404).send({
-        message: 'No Product with that identifier has been found'
+        message: 'No Payment with that identifier has been found'
       });
     }
-    req.product = product;
+    req.payment = payment;
     next();
   });
 };

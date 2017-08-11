@@ -6,12 +6,14 @@
 var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Shipping = mongoose.model('Shipping'),
   Product = mongoose.model('Product');
 
 /**
  * Globals
  */
 var user,
+  shipping,
   product;
 
 /**
@@ -27,12 +29,12 @@ describe('Product Model Unit Tests:', function () {
       username: 'username',
       password: 'password'
     });
-    // var product1 = {
+    shipping = new Shipping({
+      name: 'ems',
+      detail: 'Shipping detail',
+      day: 5
+    });
 
-    // };
-    var shipping = {
-      name: 'ems'
-    };
     var payment = [{
       name: 'payment name'
     }];
@@ -64,10 +66,15 @@ describe('Product Model Unit Tests:', function () {
           url: 'imageUrl',
           id: 'imageID'
         }],
-        shipping: shipping,
+        shippings: [{
+          shipping: shipping,
+          shippingprice: 0,
+          shippingstartdate: new Date('2017-04-20'),
+          shippingenddate: new Date('2017-04-20')
+        }],
         review: [],
         rate: 5,
-        preparedays:5,
+        preparedays: 5,
         qa: [{
           question: 'Qa question',
           answer: 'Qa answer'
@@ -162,7 +169,7 @@ describe('Product Model Unit Tests:', function () {
       });
     });
 
-it('should be able to show an error when try to save without img', function (done) {
+    it('should be able to show an error when try to save without img', function (done) {
       product.img = [];
 
       return product.save(function (err) {
@@ -171,23 +178,23 @@ it('should be able to show an error when try to save without img', function (don
       });
     });
 
-//     it('should be able to show an error when try to save without shipping', function (done) {
-//       product.shipping = [];
+    it('should be able to show an error when try to save without shipping', function (done) {
+      product.shippings = [];
 
-//       return product.save(function (err) {
-//         should.exist(err);
-//         done();
-//       });
-//     });
+      return product.save(function (err) {
+        should.exist(err);
+        done();
+      });
+    });
 
-// it('should be able to show an error when try to save without payment', function (done) {
-//       product.payment = [];
+    // it('should be able to show an error when try to save without payment', function (done) {
+    //       product.payment = [];
 
-//       return product.save(function (err) {
-//         should.exist(err);
-//         done();
-//       });
-//     });
+    //       return product.save(function (err) {
+    //         should.exist(err);
+    //         done();
+    //       });
+    //     });
 
     it('should be able to show an error when try to save without category', function (done) {
       product.category = [];
@@ -198,7 +205,7 @@ it('should be able to show an error when try to save without img', function (don
       });
     });
 
-     it('should be able to show an error when try to save without preparedays', function (done) {
+    it('should be able to show an error when try to save without preparedays', function (done) {
       product.preparedays = null;
 
       return product.save(function (err) {

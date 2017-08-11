@@ -5,115 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Product = mongoose.model('Product'),
+  Shipping = mongoose.model('Shipping'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Product
+ * Create a Shipping
  */
 exports.create = function(req, res) {
-  var product = new Product(req.body);
-  product.user = req.user;
+  var shipping = new Shipping(req.body);
+  shipping.user = req.user;
 
-  product.save(function(err) {
+  shipping.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(product);
+      res.jsonp(shipping);
     }
   });
 };
 
 /**
- * Show the current Product
+ * Show the current Shipping
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var product = req.product ? req.product.toJSON() : {};
+  var shipping = req.shipping ? req.shipping.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  product.isCurrentUserOwner = req.user && product.user && product.user._id.toString() === req.user._id.toString();
+  shipping.isCurrentUserOwner = req.user && shipping.user && shipping.user._id.toString() === req.user._id.toString();
 
-  res.jsonp(product);
+  res.jsonp(shipping);
 };
 
 /**
- * Update a Product
+ * Update a Shipping
  */
 exports.update = function(req, res) {
-  var product = req.product;
+  var shipping = req.shipping;
 
-  product = _.extend(product, req.body);
+  shipping = _.extend(shipping, req.body);
 
-  product.save(function(err) {
+  shipping.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(product);
+      res.jsonp(shipping);
     }
   });
 };
 
 /**
- * Delete an Product
+ * Delete an Shipping
  */
 exports.delete = function(req, res) {
-  var product = req.product;
+  var shipping = req.shipping;
 
-  product.remove(function(err) {
+  shipping.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(product);
+      res.jsonp(shipping);
     }
   });
 };
 
 /**
- * List of Products
+ * List of Shippings
  */
 exports.list = function(req, res) {
-  Product.find().sort('-created').populate('user', 'displayName').populate('shippings.shipping')
-  .exec(function(err, products) {
+  Shipping.find().sort('-created').populate('user', 'displayName').exec(function(err, shippings) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(products);
+      res.jsonp(shippings);
     }
   });
 };
 
 /**
- * Product middleware
+ * Shipping middleware
  */
-exports.productByID = function(req, res, next, id) {
+exports.shippingByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Product is invalid'
+      message: 'Shipping is invalid'
     });
   }
 
-  Product.findById(id).populate('user', 'displayName').populate('shippings.shipping')
-  .exec(function (err, product) {
+  Shipping.findById(id).populate('user', 'displayName').exec(function (err, shipping) {
     if (err) {
       return next(err);
-    } else if (!product) {
+    } else if (!shipping) {
       return res.status(404).send({
-        message: 'No Product with that identifier has been found'
+        message: 'No Shipping with that identifier has been found'
       });
     }
-    req.product = product;
+    req.shipping = shipping;
     next();
   });
 };

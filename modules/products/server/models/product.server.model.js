@@ -111,6 +111,27 @@ var ProductSchema = new Schema({
       }],
     }]
   },
+  shippings: {
+    required: 'Please fill Product shipping',
+    type: [{
+      shipping: {
+        type: Schema.ObjectId,
+        ref: 'Shipping',
+      },
+      shippingprice: {
+        type: Number,
+        default: 0
+      },
+      shippingstartdate: {
+        type: Date,
+        required: [true, 'Please fill Product shippingstartdate']
+      },
+      shippingenddate: {
+        type: Date,
+        required: [true, 'Please fill Product shippingenddate1']
+      }
+    }]
+  },
   // shopseller: {
   //   type: Schema.ObjectId,
   //   ref: 'Shopseller'
