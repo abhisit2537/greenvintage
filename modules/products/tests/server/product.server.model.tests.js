@@ -7,6 +7,7 @@ var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Shipping = mongoose.model('Shipping'),
+  Payment = mongoose.model('Payment'),
   Product = mongoose.model('Product');
 
 /**
@@ -14,6 +15,7 @@ var should = require('should'),
  */
 var user,
   shipping,
+  payment,
   product;
 
 /**
@@ -35,9 +37,15 @@ describe('Product Model Unit Tests:', function () {
       day: 5
     });
 
-    var payment = [{
-      name: 'payment name'
-    }];
+    payment = new Payment({
+      name: 'Payment Name',
+      detail: 'Payment Detail',
+      img: {
+        url: 'PaymentImg',
+        id: 'PaymentID'
+
+      }
+    });
     var shopseller = {
       name: 'shopseller name',
       email: 'shopseller email',
@@ -105,7 +113,9 @@ describe('Product Model Unit Tests:', function () {
           sumout: 10,
           amount: 10
         },
-        payment: payment,
+        payment: [{
+          payment: payment
+        }],
         qty: 10,
         size: {
           issize: true,
@@ -180,6 +190,15 @@ describe('Product Model Unit Tests:', function () {
 
     it('should be able to show an error when try to save without shipping', function (done) {
       product.shippings = [];
+
+      return product.save(function (err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+     it('should be able to show an error when try to save without payment', function (done) {
+      product.payment = [];
 
       return product.save(function (err) {
         should.exist(err);

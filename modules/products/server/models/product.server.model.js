@@ -132,6 +132,15 @@ var ProductSchema = new Schema({
       }
     }]
   },
+  payment: {
+    required: 'Please fill Product payment',
+    type: [{
+      payment: {
+        type: Schema.ObjectId,
+        ref: 'Payment'
+      }
+    }]
+  },
   // shopseller: {
   //   type: Schema.ObjectId,
   //   ref: 'Shopseller'
