@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/products/:productId',
       permissions: '*'
+    },{
+      resources: '/api/productbyshopid/:shopId',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -29,6 +32,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/products/:productId',
       permissions: ['get']
+    },{
+      resources: '/api/productbyshopid/:shopId',
+      permissions: '*'
     }]
   }, {
     roles: ['guest'],
@@ -38,6 +44,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/products/:productId',
       permissions: ['get']
+    },{
+      resources: '/api/productbyshopid/:shopId',
+      permissions: '*'
     }]
   }]);
 };

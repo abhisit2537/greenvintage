@@ -81,7 +81,8 @@ exports.delete = function(req, res) {
  * List of Shopsellers
  */
 exports.list = function(req, res) {
-  Shopseller.find().sort('-created').populate('user', 'displayName').exec(function(err, shopsellers) {
+  Shopseller.find().sort('-created').populate('user', 'displayName')
+  .exec(function(err, shopsellers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

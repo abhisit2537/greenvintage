@@ -523,6 +523,172 @@ describe('Product CRUD tests', function () {
     });
   });
 
+  it('xxx', function (done) {
+    var product2 = new Product({
+      shopseller: shopseller,
+      name: 'product name',
+      detail: 'product detail',
+      unitprice: 100,
+      img: [{
+        url: 'imageUrl',
+        id: 'imageID'
+      }],
+      shippings: [{
+        shipping: shipping,
+        shippingprice: 0,
+        shippingstartdate: new Date('2017-04-20'),
+        shippingenddate: new Date('2017-04-20')
+      }],
+      review: [],
+      rate: 5,
+      preparedays: 5,
+      qa: [{
+        question: 'Qa question',
+        answer: 'Qa answer'
+      }],
+      promotion: [{
+        name: 'promotion name',
+        desc: 'promotion description',
+        code: 'promotion code',
+        startdate: new Date('2017-04-20'),
+        enddate: new Date('2017-04-22')
+      }],
+      favorite: [{
+        customerid: user,
+        favdate: new Date('2017-04-22')
+
+      }],
+      historyLog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }],
+      stock: {
+        stockvalue: [{
+          in: 10,
+          out: 10,
+          stockdate: new Date('2017-04-22')
+        }],
+        sumin: 10,
+        sumout: 10,
+        amount: 10
+      },
+      payment: [{
+        payment: payment
+      }],
+      qty: 10,
+      size: {
+        issize: true,
+        detail: {
+          desc: 'detail size',
+          sizedetail: [{
+            name: 'sizedetail name',
+            qty: 10
+          }],
+        },
+      },
+
+      category: [{
+        name: 'category name',
+        desc: 'category description',
+        subcategory: [{
+          name: 'subcategory name',
+          desc: 'subcategory description'
+        }],
+      }],
+    });
+    var product3 = new Product({
+      shopseller: shopseller,
+      name: 'product name',
+      detail: 'product detail',
+      unitprice: 100,
+      img: [{
+        url: 'imageUrl',
+        id: 'imageID'
+      }],
+      shippings: [{
+        shipping: shipping,
+        shippingprice: 0,
+        shippingstartdate: new Date('2017-04-20'),
+        shippingenddate: new Date('2017-04-20')
+      }],
+      review: [],
+      rate: 5,
+      preparedays: 5,
+      qa: [{
+        question: 'Qa question',
+        answer: 'Qa answer'
+      }],
+      promotion: [{
+        name: 'promotion name',
+        desc: 'promotion description',
+        code: 'promotion code',
+        startdate: new Date('2017-04-20'),
+        enddate: new Date('2017-04-22')
+      }],
+      favorite: [{
+        customerid: user,
+        favdate: new Date('2017-04-22')
+
+      }],
+      historyLog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }],
+      stock: {
+        stockvalue: [{
+          in: 10,
+          out: 10,
+          stockdate: new Date('2017-04-22')
+        }],
+        sumin: 10,
+        sumout: 10,
+        amount: 10
+      },
+      payment: [{
+        payment: payment
+      }],
+      qty: 10,
+      size: {
+        issize: true,
+        detail: {
+          desc: 'detail size',
+          sizedetail: [{
+            name: 'sizedetail name',
+            qty: 10
+          }],
+        },
+      },
+
+      category: [{
+        name: 'category name',
+        desc: 'category description',
+        subcategory: [{
+          name: 'subcategory name',
+          desc: 'subcategory description'
+        }],
+      }],
+    });
+    product3.save(function () {
+      product2.save(function () {
+        agent.get('/api/productbyshopid/' + shopseller._id)
+          .expect(200)
+          .end(function (productInfoErr, productInfoRes) {
+            // Handle Product error
+            if (productInfoErr) {
+              return done(productInfoErr);
+            }
+
+            // Set assertions
+            (productInfoRes.body.length).should.equal(2);
+            // (productInfoRes.body.name).should.equal(product.name);
+
+            // Call the assertion callback
+            done();
+          });
+      });
+    });
+  });
+
   afterEach(function (done) {
     Shopseller.remove().exec(function () {
       Payment.remove().exec(function () {
