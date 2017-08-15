@@ -141,10 +141,11 @@ var ProductSchema = new Schema({
       }
     }]
   },
-  // shopseller: {
-  //   type: Schema.ObjectId,
-  //   ref: 'Shopseller'
-  // },
+  shopseller: {
+    required: 'Please fill Product shopseller',
+    type: Schema.ObjectId,
+    ref: 'Shopseller'
+  },
   created: {
     type: Date,
     default: Date.now

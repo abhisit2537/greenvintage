@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Products
  */
 exports.list = function(req, res) {
-  Product.find().sort('-created').populate('user', 'displayName').populate('shippings.shipping').populate('payment.payment')
+  Product.find().sort('-created').populate('user', 'displayName').populate('shippings.shipping').populate('payment.payment').populate('shopseller')
   .exec(function(err, products) {
     if (err) {
       return res.status(400).send({
@@ -104,7 +104,7 @@ exports.productByID = function(req, res, next, id) {
     });
   }
 
-  Product.findById(id).populate('user', 'displayName').populate('shippings.shipping').populate('payment.payment')
+  Product.findById(id).populate('user', 'displayName').populate('shippings.shipping').populate('payment.payment').populate('shopseller')
   .exec(function (err, product) {
     if (err) {
       return next(err);

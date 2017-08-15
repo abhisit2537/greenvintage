@@ -7,6 +7,7 @@ var should = require('should'),
   User = mongoose.model('User'),
   Shipping = mongoose.model('Shipping'),
   Payment = mongoose.model('Payment'),
+  Shopseller = mongoose.model('Shopseller'),
   Product = mongoose.model('Product'),
   express = require(path.resolve('./config/lib/express'));
 
@@ -18,6 +19,7 @@ var app,
   credentials,
   user,
   shipping,
+  shopseller,
   payment,
   product;
 
@@ -65,7 +67,7 @@ describe('Product CRUD tests', function () {
         id: 'paymentID'
       }
     });
-    var shopseller = {
+    shopseller = new Shopseller({
       name: 'shopseller name',
       email: 'shopseller email',
       tel: 'shopseller tel',
@@ -82,87 +84,90 @@ describe('Product CRUD tests', function () {
       review: [],
       rate: 5,
       historylog: []
-    };
+    });
     // Save a user to the test db and create new Product
-    payment.save(function () {
-      shipping.save(function () {
-        user.save(function () {
-          product = {
-            shopseller: shopseller,
-            name: 'product name',
-            detail: 'product detail',
-            unitprice: 100,
-            img: [{
-              url: 'imageUrl',
-              id: 'imageID'
-            }],
-            shippings: [{
-              shipping: shipping,
-              shippingprice: 0,
-              shippingstartdate: new Date('2017-04-20'),
-              shippingenddate: new Date('2017-04-20')
-            }],
-            review: [],
-            rate: 5,
-            preparedays: 5,
-            qa: [{
-              question: 'Qa question',
-              answer: 'Qa answer'
-            }],
-            promotion: [{
-              name: 'promotion name',
-              desc: 'promotion description',
-              code: 'promotion code',
-              startdate: new Date('2017-04-20'),
-              enddate: new Date('2017-04-22')
-            }],
-            favorite: [{
-              customerid: user,
-              favdate: new Date('2017-04-22')
-
-            }],
-            historyLog: [{
-              customerid: user,
-              hisdate: new Date('2017-04-22')
-            }],
-            stock: {
-              stockvalue: [{
-                in: 10,
-                out: 10,
-                stockdate: new Date('2017-04-22')
+    shopseller.save(function () {
+      payment.save(function () {
+        shipping.save(function () {
+          user.save(function () {
+            product = {
+              shopseller: shopseller,
+              name: 'product name',
+              detail: 'product detail',
+              unitprice: 100,
+              img: [{
+                url: 'imageUrl',
+                id: 'imageID'
               }],
-              sumin: 10,
-              sumout: 10,
-              amount: 10
-            },
-            payment: [{
-              payment:payment
-            }],
-            qty: 10,
-            size: {
-              issize: true,
-              detail: {
-                desc: 'detail size',
-                sizedetail: [{
-                  name: 'sizedetail name',
-                  qty: 10
+              shippings: [{
+                shipping: shipping,
+                shippingprice: 0,
+                shippingstartdate: new Date('2017-04-20'),
+                shippingenddate: new Date('2017-04-20')
+              }],
+              review: [],
+              rate: 5,
+              preparedays: 5,
+              qa: [{
+                question: 'Qa question',
+                answer: 'Qa answer'
+              }],
+              promotion: [{
+                name: 'promotion name',
+                desc: 'promotion description',
+                code: 'promotion code',
+                startdate: new Date('2017-04-20'),
+                enddate: new Date('2017-04-22')
+              }],
+              favorite: [{
+                customerid: user,
+                favdate: new Date('2017-04-22')
+
+              }],
+              historyLog: [{
+                customerid: user,
+                hisdate: new Date('2017-04-22')
+              }],
+              stock: {
+                stockvalue: [{
+                  in: 10,
+                  out: 10,
+                  stockdate: new Date('2017-04-22')
                 }],
+                sumin: 10,
+                sumout: 10,
+                amount: 10
               },
-            },
-
-            category: [{
-              name: 'category name',
-              desc: 'category description',
-              subcategory: [{
-                name: 'subcategory name',
-                desc: 'subcategory description'
+              payment: [{
+                payment: payment
               }],
-            }],
-          };
+              qty: 10,
+              size: {
+                issize: true,
+                detail: {
+                  desc: 'detail size',
+                  sizedetail: [{
+                    name: 'sizedetail name',
+                    qty: 10
+                  }],
+                },
+              },
 
-          done();
+              category: [{
+                name: 'category name',
+                desc: 'category description',
+                subcategory: [{
+                  name: 'subcategory name',
+                  desc: 'subcategory description'
+                }],
+              }],
+            };
+
+            done();
+          });
         });
       });
+
     });
   });
 
@@ -208,6 +213,7 @@ describe('Product CRUD tests', function () {
                 (products[0].img[0].url).should.match('imageUrl');
                 (products[0].preparedays).should.match(5);
                 (products[0].shippings[0].shipping.name).should.match('ems');
+                (products[0].shopseller.name).should.match('shopseller name');
                 (products[0].payment[0].payment.name).should.match('payment name');
 
                 // Call the assertion callback
@@ -518,10 +524,12 @@ describe('Product CRUD tests', function () {
   });
 
   afterEach(function (done) {
-    Payment.remove().exec(function () {
-      Shipping.remove().exec(function () {
-        User.remove().exec(function () {
-          Product.remove().exec(done);
+    Shopseller.remove().exec(function () {
+      Payment.remove().exec(function () {
+        Shipping.remove().exec(function () {
+          User.remove().exec(function () {
+            Product.remove().exec(done);
+          });
         });
       });
     });

@@ -8,6 +8,7 @@ var should = require('should'),
   User = mongoose.model('User'),
   Shipping = mongoose.model('Shipping'),
   Payment = mongoose.model('Payment'),
+  Shopseller = mongoose.model('Shopseller'),
   Product = mongoose.model('Product');
 
 /**
@@ -16,6 +17,7 @@ var should = require('should'),
 var user,
   shipping,
   payment,
+  shopseller,
   product;
 
 /**
@@ -46,7 +48,7 @@ describe('Product Model Unit Tests:', function () {
 
       }
     });
-    var shopseller = {
+    shopseller = new Shopseller({
       name: 'shopseller name',
       email: 'shopseller email',
       tel: 'shopseller tel',
@@ -63,7 +65,7 @@ describe('Product Model Unit Tests:', function () {
       review: [],
       rate: 5,
       historylog: []
-    };
+    });
     user.save(function () {
       product = new Product({
         shopseller: shopseller,
@@ -161,14 +163,14 @@ describe('Product Model Unit Tests:', function () {
       });
     });
 
-    //  it('should be able to show an error when try to save without shopseller', function (done) {
-    //   product.shopseller = [];
+    it('should be able to show an error when try to save without shopseller', function (done) {
+      product.shopseller = '';
 
-    //   return product.save(function (err) {
-    //     should.exist(err);
-    //     done();
-    //   });
-    // });
+      return product.save(function (err) {
+        should.exist(err);
+        done();
+      });
+    });
 
     it('should be able to show an error when try to save without unitprice', function (done) {
       product.unitprice = null;
@@ -197,7 +199,7 @@ describe('Product Model Unit Tests:', function () {
       });
     });
 
-     it('should be able to show an error when try to save without payment', function (done) {
+    it('should be able to show an error when try to save without payment', function (done) {
       product.payment = [];
 
       return product.save(function (err) {
