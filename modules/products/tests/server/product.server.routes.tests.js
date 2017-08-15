@@ -523,7 +523,7 @@ describe('Product CRUD tests', function () {
     });
   });
 
-  it('xxx', function (done) {
+  it('should be able to get Product By ShopId', function (done) {
     var product2 = new Product({
       shopseller: shopseller,
       name: 'product name',
