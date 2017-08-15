@@ -34,7 +34,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     },{
       resources: '/api/productbyshopid/:shopId',
-      permissions: '*'
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
@@ -46,7 +46,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     },{
       resources: '/api/productbyshopid/:shopId',
-      permissions: '*'
+      permissions: ['get']
     }]
   }]);
 };
