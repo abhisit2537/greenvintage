@@ -2,9 +2,9 @@
 var multer = require('multer');
 module.exports = {
     app: {
-        title: 'Time Attendance',
+        title: 'Green Vintage',
         description: '',
-        keywords: 'Time Attendance',
+        keywords: 'Green Vintage',
         googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
     },
     port: process.env.PORT || 3000,
