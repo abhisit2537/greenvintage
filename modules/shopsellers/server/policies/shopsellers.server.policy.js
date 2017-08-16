@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/shopsellers/:shopsellerId',
       permissions: '*'
+    }, {
+      resources: '/api/shopsellerspoppular',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -29,6 +32,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/shopsellers/:shopsellerId',
       permissions: ['get']
+    }, {
+      resources: '/api/shopsellerspoppular',
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
@@ -37,6 +43,9 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/shopsellers/:shopsellerId',
+      permissions: ['get']
+    }, {
+      resources: '/api/shopsellerspoppular',
       permissions: ['get']
     }]
   }]);

@@ -425,6 +425,169 @@ describe('Shopseller CRUD tests', function () {
     });
   });
 
+  it('should be able to get Shopsellers Poppular', function (done) {
+    var Shopseller1 = new Shopseller({
+      name: 'Shopseller Name',
+      email: 'Shopseller email',
+      tel: 'Shopseller tel',
+      img: {
+        url: 'imgUrl',
+        id: 'imgId'
+      },
+      coverimg: {
+        url: 'imgUrl',
+        id: 'imgId'
+      },
+      detail: 'Shopseller detail',
+      review: [{
+        comment: 'Review comment',
+        rate: 5,
+        user: user
+      }],
+      rate: 5,
+      historylog: [{
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }],
+    });
+    var Shopseller2 = new Shopseller({
+      name: 'Shopseller Name',
+      email: 'Shopseller email',
+      tel: 'Shopseller tel',
+      img: {
+        url: 'imgUrl',
+        id: 'imgId'
+      },
+      coverimg: {
+        url: 'imgUrl',
+        id: 'imgId'
+      },
+      detail: 'Shopseller detail',
+      review: [{
+        comment: 'Review comment',
+        rate: 5,
+        user: user
+      }],
+      rate: 5,
+      historylog: [{
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }],
+    });
+    var Shopseller3 = new Shopseller({
+      name: 'Shopseller Name',
+      email: 'Shopseller email',
+      tel: 'Shopseller tel',
+      img: {
+        url: 'imgUrl',
+        id: 'imgId'
+      },
+      coverimg: {
+        url: 'imgUrl',
+        id: 'imgId'
+      },
+      detail: 'Shopseller detail',
+      review: [{
+        comment: 'Review comment',
+        rate: 5,
+        user: user
+      }],
+      rate: 5,
+      historylog: [{
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }],
+    });
+    var Shopseller4 = new Shopseller({
+      name: 'Shopseller Name',
+      email: 'Shopseller email',
+      tel: 'Shopseller tel',
+      img: {
+        url: 'imgUrl',
+        id: 'imgId'
+      },
+      coverimg: {
+        url: 'imgUrl',
+        id: 'imgId'
+      },
+      detail: 'Shopseller detail',
+      review: [{
+        comment: 'Review comment',
+        rate: 5,
+        user: user
+      }],
+      rate: 5,
+      historylog: [{
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        historydate: new Date('2017-04-22')
+      }],
+    });
+
+    Shopseller1.save();
+    Shopseller2.save();
+    Shopseller3.save();
+    Shopseller4.save();
+
+    agent.get('/api/shopsellerspoppular')
+      .expect(200)
+      .end(function (shopsellerInfoErr, shopsellerInfoRes) {
+        // Handle Product error
+        if (shopsellerInfoErr) {
+          return done(shopsellerInfoErr);
+        }
+
+        // Set assertions
+        (shopsellerInfoRes.body.length).should.equal(4);
+        (shopsellerInfoRes.body[0].historylog.length).should.equal(8);
+        (shopsellerInfoRes.body[1].historylog.length).should.equal(4);
+        (shopsellerInfoRes.body[2].historylog.length).should.equal(3);
+        (shopsellerInfoRes.body[3].historylog.length).should.equal(2);
+        // (shopsellerInfoRes.body.name).should.equal(product.name);
+
+        // Call the assertion callback
+        done();
+      });
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Shopseller.remove().exec(done);

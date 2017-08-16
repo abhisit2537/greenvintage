@@ -116,3 +116,26 @@ exports.shopsellerByID = function(req, res, next, id) {
     next();
   });
 };
+
+exports.getshopsellers = function (req, res, next) {
+  Shopseller.find().sort('-created').populate('user', 'displayName').exec(function (err, shopseller) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        req.shopseller = shopseller;
+        next();
+      }
+    });
+};
+
+exports.shopsellerspoppular = function (req, res) {
+  var shopsellerPop = req.shopseller;
+  shopsellerPop.sort(function (a, b) {
+    return (a.historylog.length < b.historylog.length) ? 1 : ((b.historylog.length < a.historylog.length) ? -1 : 0);
+  });
+
+  res.jsonp(shopsellerPop);
+
+};
