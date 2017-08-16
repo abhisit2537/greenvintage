@@ -84,7 +84,7 @@ var ProductSchema = new Schema({
       hisdate: {
         type: Date,
         default: Date.now
-      }
+      },
     }]
   },
   stock: {

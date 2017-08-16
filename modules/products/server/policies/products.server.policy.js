@@ -20,8 +20,11 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/products/:productId',
       permissions: '*'
-    },{
+    }, {
       resources: '/api/productbyshopid/:shopId',
+      permissions: '*'
+    }, {
+      resources: '/api/productspoppular',
       permissions: '*'
     }]
   }, {
@@ -32,8 +35,11 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/products/:productId',
       permissions: ['get']
-    },{
+    }, {
       resources: '/api/productbyshopid/:shopId',
+      permissions: ['get']
+    }, {
+      resources: '/api/productspoppular',
       permissions: ['get']
     }]
   }, {
@@ -44,8 +50,11 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/products/:productId',
       permissions: ['get']
-    },{
+    }, {
       resources: '/api/productbyshopid/:shopId',
+      permissions: ['get']
+    }, {
+      resources: '/api/productspoppular',
       permissions: ['get']
     }]
   }]);

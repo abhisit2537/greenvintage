@@ -12,8 +12,8 @@ module.exports = function (app) {
     .get(products.list)
     .post(products.create);
 
-  // app.route('/api/productspoppular').all(productsPolicy.isAllowed)
-  //   .get(products.list);
+  app.route('/api/productspoppular').all(productsPolicy.isAllowed)
+    .get(products.getproducts, products.productspoppular);
 
   app.route('/api/products/:productId').all(productsPolicy.isAllowed)
     .get(products.read)

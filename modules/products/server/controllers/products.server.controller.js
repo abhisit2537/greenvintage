@@ -138,3 +138,27 @@ exports.shopByID = function (req, res, next, shopId) {
 exports.productbyshopid = function (req, res) {
   res.jsonp(req.shopId);
 };
+
+exports.getproducts = function (req, res, next) {
+  Product.find().sort('-created').populate('user', 'displayName').populate('shippings.shipping').populate('payment.payment').populate('shopseller')
+    .exec(function (err, products) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        req.products = products;
+        next();
+      }
+    });
+};
+
+exports.productspoppular = function (req, res) {
+  var productPop = req.products;
+  productPop.sort(function (a, b) {
+    return (a.historyLog.length < b.historyLog.length) ? 1 : ((b.historyLog.length < a.historyLog.length) ? -1 : 0);
+  });
+
+  res.jsonp(productPop);
+
+};
