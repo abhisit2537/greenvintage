@@ -1,6 +1,6 @@
 {
-  "name": "Greenvintage",
-  "description": "Green vintage Theme",
+  "name": "TimeAttendence",
+  "description": "Time Attendence Theme",
   "homepage": "http://meanjs.org/",
   "license": "MIT",
   "dependencies": {
