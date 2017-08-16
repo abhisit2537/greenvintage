@@ -26,6 +26,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/productspoppular',
       permissions: '*'
+    }, {
+      resources: '/api/productslastview',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -41,6 +44,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/productspoppular',
       permissions: ['get']
+    }, {
+      resources: '/api/productslastview',
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
@@ -55,6 +61,9 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/productspoppular',
+      permissions: ['get']
+    }, {
+      resources: '/api/productslastview',
       permissions: ['get']
     }]
   }]);

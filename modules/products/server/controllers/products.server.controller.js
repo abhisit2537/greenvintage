@@ -158,7 +158,28 @@ exports.productspoppular = function (req, res) {
   productPop.sort(function (a, b) {
     return (a.historyLog.length < b.historyLog.length) ? 1 : ((b.historyLog.length < a.historyLog.length) ? -1 : 0);
   });
-
   res.jsonp(productPop);
+};
 
+exports.productslastview = function (req, res) {
+  var productLastview = req.products;
+  var product = new Product(req.body);
+  product.user = req.user;
+  productLastview.forEach(function (itm) {
+    if (itm.historyLog.length > 9) {
+      itm.historyLog.shift();
+      itm.historyLog.push({
+        customerid: product.user,
+        hisdate: new Date().now,
+        idprod: productLastview._id
+      });
+    } else {
+      itm.historyLog.push({
+        customerid: product.user,
+        hisdate: new Date().now,
+        idprod: productLastview._id
+      });
+    }
+  });
+  res.jsonp(productLastview);
 };
