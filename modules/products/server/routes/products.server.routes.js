@@ -23,7 +23,7 @@ module.exports = function (app) {
     .put(products.update)
     .delete(products.delete);
 
-  app.route('/api/productbyshopid/:shopId').all(productsPolicy.isAllowed)
+  app.route('/api/productbyshopid/:shopId')//.all(productsPolicy.isAllowed)
     .get(products.productbyshopid);
   // Finish by binding the Product middleware
   app.param('productId', products.productByID);
