@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Product = mongoose.model('Product'),
+  Shopseller = mongoose.model('Shopseller'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -139,20 +140,6 @@ exports.productbyshopid = function (req, res) {
   res.jsonp(req.shopId);
 };
 
-exports.getproducts = function (req, res, next) {
-  Product.find().sort('-created').populate('user', 'displayName').populate('shippings.shipping').populate('payment.payment').populate('shopseller')
-    .exec(function (err, products) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        req.products = products;
-        next();
-      }
-    });
-};
-
 exports.productspoppular = function (req, res) {
   var productPop = req.products;
   productPop.sort(function (a, b) {
@@ -182,4 +169,84 @@ exports.productslastview = function (req, res) {
     }
   });
   res.jsonp(productLastview);
+};
+
+exports.getproducts = function (req, res, next) {
+  Product.find().sort('-created').populate('user', 'displayName').populate('shippings.shipping').populate('payment.payment').populate('shopseller')
+    .exec(function (err, products) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        req.products = products;
+        next();
+      }
+    });
+};
+
+exports.getshopseller = function (req, res, next) {
+  Shopseller.find().sort('-created').exec(function (err, shopsellers) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      req.shopsellers = shopsellers;
+      next();
+    }
+  });
+};
+
+exports.prodpoppular = function (req, res, next) {
+  var prodPop = req.products;
+  prodPop.sort(function (a, b) {
+    return (a.historyLog.length < b.historyLog.length) ? 1 : ((b.historyLog.length < a.historyLog.length) ? -1 : 0);
+  });
+  req.prodPop = prodPop;
+  next();
+};
+
+exports.shoppoppular = function (req, res, next) {
+  var shopPop = req.shopsellers;
+  shopPop.sort(function (a, b) {
+    return (a.historylog.length < b.historylog.length) ? 1 : ((b.historylog.length < a.historylog.length) ? -1 : 0);
+  });
+  req.shopPop = shopPop;
+  next();
+};
+
+exports.prodlastview = function (req, res, next) {
+  var prodLastview = req.products;
+  var product = new Product(req.body);
+  product.user = req.user;
+  prodLastview.forEach(function (itm) {
+    if (itm.historyLog.length > 9) {
+      itm.historyLog.shift();
+      itm.historyLog.push({
+        customerid: product.user,
+        hisdate: new Date().now,
+        idprod: prodLastview._id
+      });
+    } else {
+      itm.historyLog.push({
+        customerid: product.user,
+        hisdate: new Date().now,
+        idprod: prodLastview._id
+      });
+    }
+  });
+  req.prodLastview = prodLastview;
+  next();
+};
+
+exports.cookingdashboard = function (req, res) {
+  res.jsonp({
+    products: req.products,
+    shopsellers: req.shopsellers,
+    productspoppular: req.prodPop,
+    shopsellerspoppular: req.shopPop,
+    productslastview: req.prodLastview,
+
+  });
 };

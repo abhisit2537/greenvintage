@@ -158,7 +158,10 @@ describe('Product CRUD tests', function () {
       decs: 'shopseller desc',
       review: [],
       rate: 5,
-      historylog: []
+      historylog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }]
     });
     // Save a user to the test db and create new Product
     // testproductlastview.save(function () {
@@ -1308,6 +1311,450 @@ describe('Product CRUD tests', function () {
           });
       });
     });
+  });
+
+  it('should be able to Page Dashboard', function (done) {
+    var product1 = new Product({
+      shopseller: shopseller,
+      name: 'product name',
+      detail: 'product detail',
+      unitprice: 100,
+      img: [{
+        url: 'imageUrl',
+        id: 'imageID'
+      }],
+      shippings: [{
+        shipping: shipping,
+        shippingprice: 0,
+        shippingstartdate: new Date('2017-04-20'),
+        shippingenddate: new Date('2017-04-20')
+      }],
+      review: [],
+      rate: 5,
+      preparedays: 5,
+      qa: [{
+        question: 'Qa question',
+        answer: 'Qa answer'
+      }],
+      promotion: [{
+        name: 'promotion name',
+        desc: 'promotion description',
+        code: 'promotion code',
+        startdate: new Date('2017-04-20'),
+        enddate: new Date('2017-04-22')
+      }],
+      favorite: [{
+        customerid: user,
+        favdate: new Date('2017-04-22')
+
+      }],
+      historyLog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }],
+      stock: {
+        stockvalue: [{
+          in: 10,
+          out: 10,
+          stockdate: new Date('2017-04-22')
+        }],
+        sumin: 10,
+        sumout: 10,
+        amount: 10
+      },
+      payment: [{
+        payment: payment
+      }],
+      qty: 10,
+      size: {
+        issize: true,
+        detail: {
+          desc: 'detail size',
+          sizedetail: [{
+            name: 'sizedetail name',
+            qty: 10
+          }],
+        },
+      },
+
+      category: [{
+        name: 'category name',
+        desc: 'category description',
+        subcategory: [{
+          name: 'subcategory name',
+          desc: 'subcategory description'
+        }],
+      }],
+    });
+    var product2 = new Product({
+      shopseller: shopseller,
+      name: 'product name',
+      detail: 'product detail',
+      unitprice: 100,
+      img: [{
+        url: 'imageUrl',
+        id: 'imageID'
+      }],
+      shippings: [{
+        shipping: shipping,
+        shippingprice: 0,
+        shippingstartdate: new Date('2017-04-20'),
+        shippingenddate: new Date('2017-04-20')
+      }],
+      review: [],
+      rate: 5,
+      preparedays: 5,
+      qa: [{
+        question: 'Qa question',
+        answer: 'Qa answer'
+      }],
+      promotion: [{
+        name: 'promotion name',
+        desc: 'promotion description',
+        code: 'promotion code',
+        startdate: new Date('2017-04-20'),
+        enddate: new Date('2017-04-22')
+      }],
+      favorite: [{
+        customerid: user,
+        favdate: new Date('2017-04-22')
+
+      }],
+      historyLog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }],
+      stock: {
+        stockvalue: [{
+          in: 10,
+          out: 10,
+          stockdate: new Date('2017-04-22')
+        }],
+        sumin: 10,
+        sumout: 10,
+        amount: 10
+      },
+      payment: [{
+        payment: payment
+      }],
+      qty: 10,
+      size: {
+        issize: true,
+        detail: {
+          desc: 'detail size',
+          sizedetail: [{
+            name: 'sizedetail name',
+            qty: 10
+          }],
+        },
+      },
+
+      category: [{
+        name: 'category name',
+        desc: 'category description',
+        subcategory: [{
+          name: 'subcategory name',
+          desc: 'subcategory description'
+        }],
+      }],
+    });
+    var product3 = new Product({
+      shopseller: shopseller,
+      name: 'product name',
+      detail: 'product detail',
+      unitprice: 100,
+      img: [{
+        url: 'imageUrl',
+        id: 'imageID'
+      }],
+      shippings: [{
+        shipping: shipping,
+        shippingprice: 0,
+        shippingstartdate: new Date('2017-04-20'),
+        shippingenddate: new Date('2017-04-20')
+      }],
+      review: [],
+      rate: 5,
+      preparedays: 5,
+      qa: [{
+        question: 'Qa question',
+        answer: 'Qa answer'
+      }],
+      promotion: [{
+        name: 'promotion name',
+        desc: 'promotion description',
+        code: 'promotion code',
+        startdate: new Date('2017-04-20'),
+        enddate: new Date('2017-04-22')
+      }],
+      favorite: [{
+        customerid: user,
+        favdate: new Date('2017-04-22')
+
+      }],
+      historyLog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }],
+      stock: {
+        stockvalue: [{
+          in: 10,
+          out: 10,
+          stockdate: new Date('2017-04-22')
+        }],
+        sumin: 10,
+        sumout: 10,
+        amount: 10
+      },
+      payment: [{
+        payment: payment
+      }],
+      qty: 10,
+      size: {
+        issize: true,
+        detail: {
+          desc: 'detail size',
+          sizedetail: [{
+            name: 'sizedetail name',
+            qty: 10
+          }],
+        },
+      },
+
+      category: [{
+        name: 'category name',
+        desc: 'category description',
+        subcategory: [{
+          name: 'subcategory name',
+          desc: 'subcategory description'
+        }],
+      }],
+    });
+    var product4 = new Product({
+      shopseller: shopseller,
+      name: 'product name',
+      detail: 'product detail',
+      unitprice: 100,
+      img: [{
+        url: 'imageUrl',
+        id: 'imageID'
+      }],
+      shippings: [{
+        shipping: shipping,
+        shippingprice: 0,
+        shippingstartdate: new Date('2017-04-20'),
+        shippingenddate: new Date('2017-04-20')
+      }],
+      review: [],
+      rate: 5,
+      preparedays: 5,
+      qa: [{
+        question: 'Qa question',
+        answer: 'Qa answer'
+      }],
+      promotion: [{
+        name: 'promotion name',
+        desc: 'promotion description',
+        code: 'promotion code',
+        startdate: new Date('2017-04-20'),
+        enddate: new Date('2017-04-22')
+      }],
+      favorite: [{
+        customerid: user,
+        favdate: new Date('2017-04-22')
+
+      }],
+      historyLog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22'),
+        idprod: testproductlastview
+      }],
+      stock: {
+        stockvalue: [{
+          in: 10,
+          out: 10,
+          stockdate: new Date('2017-04-22')
+        }],
+        sumin: 10,
+        sumout: 10,
+        amount: 10
+      },
+      payment: [{
+        payment: payment
+      }],
+      qty: 10,
+      size: {
+        issize: true,
+        detail: {
+          desc: 'detail size',
+          sizedetail: [{
+            name: 'sizedetail name',
+            qty: 10
+          }],
+        },
+      },
+
+      category: [{
+        name: 'category name',
+        desc: 'category description',
+        subcategory: [{
+          name: 'subcategory name',
+          desc: 'subcategory description'
+        }],
+      }],
+    });
+
+    var testshoppop = new Shopseller({
+      name: 'shopseller name',
+      email: 'shopseller email',
+      tel: 'shopseller tel',
+      img: {
+        url: 'imageUrl',
+        id: 'imageID'
+      },
+      coverimg: {
+        url: 'imageUrl',
+        id: 'imageID'
+      },
+      order: [],
+      decs: 'shopseller desc',
+      review: [],
+      rate: 5,
+      historylog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }]
+    });
+
+    var testshoppop2 = new Shopseller({
+      name: 'shopseller name',
+      email: 'shopseller email',
+      tel: 'shopseller tel',
+      img: {
+        url: 'imageUrl',
+        id: 'imageID'
+      },
+      coverimg: {
+        url: 'imageUrl',
+        id: 'imageID'
+      },
+      order: [],
+      decs: 'shopseller desc',
+      review: [],
+      rate: 5,
+      historylog: [{
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }, {
+        customerid: user,
+        hisdate: new Date('2017-04-22')
+      }]
+    });
+
+
+    testshoppop.save(function () {
+      testshoppop2.save(function () {
+        product1.save(function () {
+          product2.save(function () {
+            product3.save(function () {
+              product4.save(function () {
+                agent.get('/api/dashboard')
+                  .expect(200)
+                  .end(function (productInfoErr, productInfoRes) {
+                    // Handle Product error
+                    if (productInfoErr) {
+                      return done(productInfoErr);
+                    }
+
+                    // Set assertions
+                    (productInfoRes.body.products.length).should.equal(4);
+                    (productInfoRes.body.shopsellers.length).should.equal(3);
+                    (productInfoRes.body.products[0].historyLog.length).should.equal(10);
+                    (productInfoRes.body.products[1].historyLog.length).should.equal(4);
+                    (productInfoRes.body.products[2].historyLog.length).should.equal(3);
+                    (productInfoRes.body.products[3].historyLog.length).should.equal(2);
+                    (productInfoRes.body.shopsellers[0].historylog.length).should.equal(4);
+                    (productInfoRes.body.shopsellers[1].historylog.length).should.equal(2);
+                    (productInfoRes.body.shopsellers[2].historylog.length).should.equal(1);
+
+                    // (productInfoRes.body.productspoppular.length).should.equal(1);
+                    // (productInfoRes.body.shopsellerspoppular.length).should.equal(1);
+                    // (productInfoRes.body.productslastview.length).should.equal(1);
+
+                    // (productInfoRes.body[1].historyLog.length).should.equal(2);
+                    // (productInfoRes.body.name).should.equal(product.name);
+
+                    // Call the assertion callback
+                    done();
+                  });
+              });
+            });
+          });
+        });
+      });
+    });
+
+
   });
 
 
